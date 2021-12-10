@@ -1,2 +1,13 @@
-# Formal-earley
-Earley_parser
+***********************
+****Earley-алгоритм****
+***********************
+
+Запусить:
+
+python3 main.py
+
+Запусить тесты:
+
+py.test --cov=earley tests/
+
+
