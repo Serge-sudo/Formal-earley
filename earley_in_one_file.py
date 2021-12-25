@@ -150,20 +150,23 @@ class Earley_parser:
             return True
 
     def Complete(self, vertex_number):
+        stack = []
         check = False
-        res = set()
-        for item in self.vertices[vertex_number]:
+        stack.extend(list(self.vertices[vertex_number]))
+        new_states = set()
+        while stack:
+            item = stack.pop(0)
             if item.is_last:
-                for expcect in self.vertices[item.root]:
-                    if expcect.dot_val == item.left:
-                        new_item = expcect.move_dot()
+                for expect in self.vertices[item.root]:
+                    if expect.dot_val == item.left:
+                        new_item = expect.move_dot()
                         if (
                             new_item not in self.vertices[vertex_number]
-                            and new_item not in res
+                            and new_item not in new_states
                         ):
-                            res.add(new_item)
+                            new_states.add(new_item)
                             check = True
-        self.vertices[vertex_number].update(res)
+        self.vertices[vertex_number].update(new_states)
         return check
 
     def Scan(self, vertex_number, symbol):
@@ -175,7 +178,9 @@ class Earley_parser:
     def predict(self, word):
         self.vertices[0] = set()
         for rule in self.rules[self.start]:
-            self.vertices[0].add(state(rule.left, rule.right, 0, 0, rule.id))
+            self.vertices[0].add(
+                state(left=rule.left, right=rule.right, dot_pos=0, root=0, id=rule.id)
+            )
         while self.Predict(0) or self.Complete(0):
             continue
         for i in range(1, len(word) + 1):
