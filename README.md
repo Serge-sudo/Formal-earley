@@ -1,12 +1,10 @@
-***********************
-****Earley-алгоритм****
-***********************
+# Earley 
 
-Запусить:
+Launch:
 
 python3 main.py
 
-Запусить тесты:
+Launch tests:
 
 py.test --cov=earley tests/
 
