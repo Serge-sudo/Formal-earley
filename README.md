@@ -1,15 +1,23 @@
-# Earley 
+# Earley Algorithm
 
-Launch:
+To launch Earley algorithm, run the following command:
 
+```
 python3 main.py
+```
 
-Launch tests:
+To run tests, use the following command:
 
+```
 py.test --cov=earley tests/
+```
 
-**************************************
-Scan - iterates over all states in the current vertex and if current symbol is equal to the symbol which we just read, than it moves dot possition and puts this state into next vertex
-Predict - pushes things from vertex into stack, and that takes items from stack one by one, if dot_val is non-terminal than it adds all rule which include dot_val into stack, and than pushes current item in "done" list.
-Complete - interates over all states in current_vertex if dot_pos is last than, it pushes all states  which dot_val is our completed non-term from origin of that state  into our current state.
-predict- creates S0 vertex than iterates over letters in the word, does scan, and than while vertex is changing it does Predict and Complete .
+The Earley algorithm consists of three main operations:
+
+1. **Scan**: This operation iterates over all states in the current vertex and checks if the current symbol is equal to the symbol that was just read. If it is, the algorithm moves the dot position and puts this state into the next vertex.
+
+2. **Predict**: This operation pushes items from the current vertex into a stack. It then takes items from the stack one by one. If the dot value is non-terminal, the algorithm adds all rules that include the dot value into the stack. It then pushes the current item into the "done" list.
+
+3. **Complete**: This operation iterates over all states in the current vertex. If the dot position is at the end of the rule, the algorithm pushes all states whose dot value is the completed non-terminal from the origin of that state into our current state.
+
+To apply the Earley algorithm, first create an S0 vertex. Then iterate over the letters in the word, perform a scan, and then while the vertex is changing, perform predict and complete operations.
